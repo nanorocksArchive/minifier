@@ -7,12 +7,11 @@ class HomeController{
 
     public function home()
     {
-        echo "home page!!!";
+        Flight::render('home/home.html.php', array('name' => 'Bob'));
     }
 
-    public function css($args)
+    public function css()
     {
-        
         echo "css page!!!";
     }
 
