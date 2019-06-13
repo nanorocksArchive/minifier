@@ -2,8 +2,8 @@
 
 use App\Model\MinifyCss;
 
-class HomeController{
-
+class HomeController
+{
 
     public function home()
     {
@@ -19,5 +19,4 @@ class HomeController{
     {
         echo "js page!!!";
     }
-
 }
