@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Minifier</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name='description' content='CSS & JavaScript minifier. We remove whitespace, strips, comments. For this app we use a few common programming patterns for optimizes/shortens.' />
+    <meta name='keywords' content='css, js, javascript, minifier, shorten, optimize, minify, programming, coding, optimization, frontend, front-end' />
+
+    <link rel="shortcut icon" href="http://www.iconj.com/ico/k/l/kle5rrhcth.ico" type="image/x-icon" />
+    <title>Minifier for CSS & JS - minifier.ml - optimize code | optimize css | optimize js | minify code | frontend</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Acme|Shadows+Into+Light&display=swap" rel="stylesheet">
@@ -21,7 +28,7 @@
 <body>
 <header>
     <div class="jumbotron text-center">
-        <h1 class="display-4">Minifier</h1>
+        <h1 class="display-4">Minifier.ml</h1>
         <hr class="my-4">
         <h4 class="">Online CSS/JS Minifier/Compressor. Simple Quick and Fast.</h4>
         <strong>Written and hosted by Andrej Nankov (<a href="https://github.com/nanorocks"
@@ -59,7 +66,11 @@
                         {% if error is defined %}
                             <small class="text-danger" id="d-error">{{ error }}</small>
                         {% endif %}
-                        <input type="hidden" name="type" id="type-hidden" value="css">
+                        {% if type is defined %}
+                            <input type="hidden" name="type" id="type-hidden" value="{{ type }}">
+                        {% else %}
+                            <input type="hidden" name="type" id="type-hidden" value="css">
+                        {% endif %}
                     </div>
                     <button class="btn btn-primary rounded-0" type="button" id="minify-btn">Minify</button>
                 </form>
@@ -91,87 +102,12 @@
     </div>
 </section>
 <script type="text/javascript">
-    window.onload = function () {
-
-        // Variables
-        let typeCss = document.getElementById('type-css');
-        let typeJs = document.getElementById('type-js');
-        let minifyBtn = document.getElementById('minify-btn');
-        let typeHidden = document.getElementById('type-hidden');
-        let postForm = document.getElementById('post-form');
-
-        let InputContentForm = document.getElementById('input-content-form');
-
-        let OutputContentForm = document.getElementById('output-content-form');
-        let OutputContentFormBtn = document.getElementById('output-content-form-btn');
-
-        let Derror = document.getElementById('d-error');
-
-        // Toggle submit btn
-        function toggleBtn(type) {
-            if (type.className.indexOf('active') != -1) {
-                minifyBtn.innerText = 'Minify css';
-            } else {
-                minifyBtn.innerText = 'Minify js';
-            }
-        }
-
-        // Toggle radio btn active class
-        function toggleRadioBtn(type1, type2) {
-            type1.classList.remove('active');
-            type2.classList.add('active');
-
-            minifyBtn.innerText = 'Minify ' + type2.innerText.toLowerCase();
-            typeHidden.setAttribute('value', type2.innerText.toLowerCase());
-            postForm.setAttribute('action', '/' + type2.innerText.toLowerCase())
-        }
-
-        // Validate input
-        function validateInput(input) {
-            return input.length === 0 || !input.trim() || input.length < 5;
-        }
-
-        // Load functions
-        toggleBtn(typeCss);
-
-        // Events
-        typeCss.addEventListener('click', function (e) {
-            toggleRadioBtn(typeJs, typeCss);
-        });
-
-        typeJs.addEventListener('click', function (e) {
-            toggleRadioBtn(typeCss, typeJs);
-        });
-
-        InputContentForm.addEventListener('keyup', function (e) {
-
-            Derror.classList.add('d-none');
-
-            if (InputContentForm.value.length <= 0) {
-                OutputContentForm.setAttribute('disabled', true);
-                OutputContentFormBtn.setAttribute('disabled', true);
-            }
-            InputContentForm.classList.remove('is-invalid');
-        });
-
-        minifyBtn.addEventListener('click', function (e) {
-
-            let flag = validateInput(InputContentForm.value);
-            if (flag) {
-                OutputContentForm.setAttribute('disabled', true);
-                OutputContentFormBtn.setAttribute('disabled', true);
-                InputContentForm.classList.add('is-invalid');
-
-            } else {
-                minifyBtn.setAttribute('type', 'submit');
-            }
-        });
-
-        OutputContentFormBtn.addEventListener('click', function (e) {
-            OutputContentForm.select();
-        });
-
-    };
+    window.onload=function(){let typeCss=document.getElementById('type-css');let typeJs=document.getElementById('type-js');let minifyBtn=document.getElementById('minify-btn');let typeHidden=document.getElementById('type-hidden');let postForm=document.getElementById('post-form');let InputContentForm=document.getElementById('input-content-form');let OutputContentForm=document.getElementById('output-content-form');let OutputContentFormBtn=document.getElementById('output-content-form-btn');let Derror=document.getElementById('d-error');let TypeHidden=document.getElementById('type-hidden');function toggleBtn(type){if(type.className.indexOf('active')!=-1){minifyBtn.innerText='Minify css'}else{minifyBtn.innerText='Minify js'}}
+        function toggleRadioBtn(type1,type2){type1.classList.remove('active');type2.classList.add('active');minifyBtn.innerText='Minify '+type2.innerText.toLowerCase();typeHidden.setAttribute('value',type2.innerText.toLowerCase());postForm.setAttribute('action','/'+type2.innerText.toLowerCase())}
+        function validateInput(input){return input.length===0||!input.trim()||input.length<5}
+        if(TypeHidden.value==='css'){toggleBtn(typeCss);toggleRadioBtn(typeJs,typeCss)}else{toggleBtn(typeJs);toggleRadioBtn(typeCss,typeJs)}
+        typeCss.addEventListener('click',function(e){toggleRadioBtn(typeJs,typeCss)});typeJs.addEventListener('click',function(e){toggleRadioBtn(typeCss,typeJs)});InputContentForm.addEventListener('keyup',function(e){Derror.classList.add('d-none');if(InputContentForm.value.length<=0){OutputContentForm.setAttribute('disabled',!0);OutputContentFormBtn.setAttribute('disabled',!0)}
+            InputContentForm.classList.remove('is-invalid')});minifyBtn.addEventListener('click',function(e){let flag=validateInput(InputContentForm.value);if(flag){OutputContentForm.setAttribute('disabled',!0);OutputContentFormBtn.setAttribute('disabled',!0);InputContentForm.classList.add('is-invalid')}else{minifyBtn.setAttribute('type','submit')}});OutputContentFormBtn.addEventListener('click',function(e){OutputContentForm.select()})}
 </script>
 </body>
 </html>
