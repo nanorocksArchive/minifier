@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Minifier</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Shadows+Into+Light&display=swap" rel="stylesheet">
+    <style type="text/css">
+        .jumbotron {
+            font-family: 'Shadows Into Light', cursive;
+        }
+
+        #load-forms, .jumbotron strong {
+            font-family: 'Acme', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Minifier</h1>
+        <hr class="my-4">
+        <h4 class="">Online CSS/JS Minifier/Compressor. Simple Quick and Fast.</h4>
+        <strong>Written and hosted by Andrej Nankov (<a href="https://github.com/nanorocks"
+                                                        target="_blank">@nanorocks</a>). </strong>
+    </div>
+</header>
+<section id="load-forms">
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col">
+                <small class="text-muted">*Invalid css or js are ignored.</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <strong class="p-1">SELECT YOUR TYPE:</strong>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-primary active" id="type-css">
+                        <input type="radio" name="css-input" id="option1" autocomplete="off" checked> CSS
+                    </label>
+                    <label class="btn btn-primary" id="type-js">
+                        <input type="radio" name="js-input" id="option2" autocomplete="off"> JS
+                    </label>
+                </div>
+                <hr/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="POST" action="/css" id="post-form">
+                    <div class="form-group">
+                        <label for="input-text">Input:</label>
+                        <textarea class="form-control rounded-0" id="input-content-form" rows="9" name="content"
+                                  id="input-content" required>{% if OldContent is defined %}{{ OldContent }}{% else %}{% endif %}</textarea>
+                        {% if error is defined %}
+                            <small class="text-danger" id="d-error">{{ error }}</small>
+                        {% endif %}
+                        <input type="hidden" name="type" id="type-hidden" value="css">
+                    </div>
+                    <button class="btn btn-primary rounded-0" type="button" id="minify-btn">Minify</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form>
+                    {% if NewContent is defined %}
+                        <div class="form-group">
+                            <label for="output-text">Output:</label>
+                            <textarea class="form-control rounded-0" id="output-content-form" rows="9"> {{ NewContent }}
+                            </textarea>
+                        </div>
+                        <button class="btn btn-primary rounded-0" id="output-content-form-btn"
+                                type="button">Select all
+                        </button>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="output-text">Output:</label>
+                            <textarea class="form-control rounded-0" id="output-content-form" rows="9"
+                                      disabled="true"></textarea>
+                        </div>
+                        <button class="btn btn-primary rounded-0" disabled="true" id="output-content-form-btn"
+                                type="button">Select all
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    window.onload = function () {
+
+        // Variables
+        let typeCss = document.getElementById('type-css');
+        let typeJs = document.getElementById('type-js');
+        let minifyBtn = document.getElementById('minify-btn');
+        let typeHidden = document.getElementById('type-hidden');
+        let postForm = document.getElementById('post-form');
+
+        let InputContentForm = document.getElementById('input-content-form');
+
+        let OutputContentForm = document.getElementById('output-content-form');
+        let OutputContentFormBtn = document.getElementById('output-content-form-btn');
+
+        let Derror = document.getElementById('d-error');
+
+        // Toggle submit btn
+        function toggleBtn(type) {
+            if (type.className.indexOf('active') != -1) {
+                minifyBtn.innerText = 'Minify css';
+            } else {
+                minifyBtn.innerText = 'Minify js';
+            }
+        }
+
+        // Toggle radio btn active class
+        function toggleRadioBtn(type1, type2) {
+            type1.classList.remove('active');
+            type2.classList.add('active');
+
+            minifyBtn.innerText = 'Minify ' + type2.innerText.toLowerCase();
+            typeHidden.setAttribute('value', type2.innerText.toLowerCase());
+            postForm.setAttribute('action', '/' + type2.innerText.toLowerCase())
+        }
+
+        // Validate input
+        function validateInput(input) {
+            return input.length === 0 || !input.trim() || input.length < 5;
+        }
+
+        // Load functions
+        toggleBtn(typeCss);
+
+        // Events
+        typeCss.addEventListener('click', function (e) {
+            toggleRadioBtn(typeJs, typeCss);
+        });
+
+        typeJs.addEventListener('click', function (e) {
+            toggleRadioBtn(typeCss, typeJs);
+        });
+
+        InputContentForm.addEventListener('keyup', function (e) {
+
+            Derror.classList.add('d-none');
+
+            if (InputContentForm.value.length <= 0) {
+                OutputContentForm.setAttribute('disabled', true);
+                OutputContentFormBtn.setAttribute('disabled', true);
+            }
+            InputContentForm.classList.remove('is-invalid');
+        });
+
+        minifyBtn.addEventListener('click', function (e) {
+
+            let flag = validateInput(InputContentForm.value);
+            if (flag) {
+                OutputContentForm.setAttribute('disabled', true);
+                OutputContentFormBtn.setAttribute('disabled', true);
+                InputContentForm.classList.add('is-invalid');
+
+            } else {
+                minifyBtn.setAttribute('type', 'submit');
+            }
+        });
+
+        OutputContentFormBtn.addEventListener('click', function (e) {
+            OutputContentForm.select();
+        });
+
+    };
+</script>
+</body>
+</html>
