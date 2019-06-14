@@ -1,6 +1,6 @@
 <?php
 
-use App\Model\MinifyCss;
+use App\Model\GeneralMinify;
 
 class HomeController
 {
@@ -47,11 +47,10 @@ class HomeController
             Flight::render('home/home.html.twig', ['error' => "Invalid type, only {$fileType} allowed."]);
         }
 
-        // TODO add minifier here ...
+        $m = new GeneralMinify($fileType);
+        $NewContent = $m->minify($OldContent);
 
-        $NewContent = $OldContent;
-
-        Flight::render('home/home.html.twig', ['NewContent' => $NewContent, 'OldContent' => $OldContent]);
+        Flight::render('home/home.html.twig', ['NewContent' => $NewContent, 'OldContent' => $OldContent, 'type' => $fileType]);
 
     }
 }

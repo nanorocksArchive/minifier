@@ -10,7 +10,7 @@ class GeneralMinify{
 
     public function __construct($type)
     {
-        if ($type == 'css') // This will be css od js
+        if ($type == 'css') // This will be css or js
         {
             $this->mini = new Mini\CSS();
         }else{

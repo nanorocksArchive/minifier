@@ -20,6 +20,6 @@ Flight::map('render', function($template, $data=array()) {
 });
 
 // Add to false on production
-Flight::set('flight.log_errors', true);
+Flight::set('flight.log_errors', false);
 
 require_once __DIR__ . '/routes.php';
