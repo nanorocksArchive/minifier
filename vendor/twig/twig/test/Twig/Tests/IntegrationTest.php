@@ -46,7 +46,7 @@ class Twig_Tests_IntegrationTest extends IntegrationTestCase
 
     public function getFixturesDir()
     {
-        return __DIR__ . '/Fixtures/';
+        return __DIR__.'/Fixtures/';
     }
 }
 

@@ -18,7 +18,7 @@ class Twig_Tests_Loader_ChainTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetSourceContext()
     {
-        $path = __DIR__ . '/../Fixtures';
+        $path = __DIR__.'/../Fixtures';
         $loader = new ChainLoader([
             new ArrayLoader(['foo' => 'bar']),
             new ArrayLoader(['errors/index.html' => 'baz']),

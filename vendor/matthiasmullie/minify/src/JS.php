@@ -126,7 +126,7 @@ class JS extends Minify
     {
         call_user_func_array(array('parent', '__construct'), func_get_args());
 
-        $dataDir = __DIR__ . '/../data/js/';
+        $dataDir = __DIR__.'/../data/js/';
         $options = FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES;
         $this->keywordsReserved = file($dataDir.'keywords_reserved.txt', $options);
         $this->keywordsBefore = file($dataDir.'keywords_before.txt', $options);

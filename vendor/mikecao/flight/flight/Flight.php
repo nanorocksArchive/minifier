@@ -84,7 +84,7 @@ class Flight {
         static $initialized = false;
 
         if (!$initialized) {
-            require_once __DIR__ . '/autoload.php';
+            require_once __DIR__.'/autoload.php';
 
             self::$engine = new \flight\Engine();
 

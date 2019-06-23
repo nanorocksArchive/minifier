@@ -11,7 +11,7 @@
 
 use Twig\Cache\FilesystemCache;
 
-require_once \dirname(__DIR__) . '/FilesystemHelper.php';
+require_once \dirname(__DIR__).'/FilesystemHelper.php';
 
 class Twig_Tests_Cache_FilesystemTest extends \PHPUnit\Framework\TestCase
 {

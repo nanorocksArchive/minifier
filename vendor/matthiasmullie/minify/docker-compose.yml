@@ -2,7 +2,7 @@ version: '2.1'
 services:
   php:
     build:
-      context: ""
+      context: .
       dockerfile: Dockerfile
     volumes:
       - ./src:/var/www/src
