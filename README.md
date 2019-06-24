@@ -1,3 +1,3 @@
 # minifier
 
-minifier for css &amp; js.
+minifier for css and js.
