@@ -67,7 +67,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <form method="POST" action="/css" id="post-form">
+                <form method="POST" action="{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}/css" id="post-form">
                     <div class="form-group">
                         <label for="input-text">Input:</label>
                         <textarea class="form-control rounded-0" id="input-content-form" rows="9" name="content"

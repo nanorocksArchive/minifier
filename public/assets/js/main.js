@@ -32,7 +32,7 @@ window.onload = function () {
 
         minifyBtn.innerText = 'Minify ' + type2.innerText.toLowerCase();
         typeHidden.setAttribute('value', type2.innerText.toLowerCase());
-        postForm.setAttribute('action', '/' + type2.innerText.toLowerCase())
+        postForm.setAttribute('action', window.location.host + '/' + type2.innerText.toLowerCase())
     }
 
     // Validate input
