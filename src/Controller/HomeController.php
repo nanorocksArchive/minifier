@@ -12,7 +12,7 @@ class HomeController
     /**
      * Render home page
      */
-    public function home()
+    public static function home()
     {
         Flight::render('home/home.html.twig');
     }
@@ -20,7 +20,7 @@ class HomeController
     /**
      * Render processed css
      */
-    public function css()
+    public static function css()
     {
         self::processFile('css');
     }
@@ -28,7 +28,7 @@ class HomeController
     /**
      * Render processed js
      */
-    public function js()
+    public static function js()
     {
         self::processFile('js');
     }
